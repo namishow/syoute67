@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日本史探究 小テスト：政党政治の復活・経済の再建</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'M PLUS Rounded 1c', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%);
+            min-height: 100vh;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+        }
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+        }
+    </style>
+</head>
+<body class="text-gray-800 flex flex-col justify-between min-h-screen p-3 md:p-6">
+
+    <!-- Header -->
+    <header class="max-w-3xl mx-auto w-full text-center my-3">
+        <div class="inline-flex items-center gap-1.5 bg-amber-400 text-amber-950 text-xs font-extrabold px-3 py-1 rounded-full mb-2 shadow">
+            <i class="fa-solid fa-graduation-cap"></i> 高校日本史探究 プリントNo.67 完全網羅
+        </div>
+        <h1 class="text-2xl md:text-3xl font-extrabold text-white tracking-wide shadow-text flex items-center justify-center gap-2">
+            <span>政党政治の復活・経済の再建</span>
+        </h1>
+        <p class="text-indigo-200 text-xs md:text-sm mt-1">戦後政党の結成・吉田茂と片山・芦田内閣・傾斜生産方式・二・一ゼネストと政令201号まで徹底攻略！</p>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-2xl mx-auto w-full flex-grow flex items-center justify-center">
+
+        <!-- START SCREEN -->
+        <div id="start-screen" class="glass-card rounded-3xl p-6 md:p-8 shadow-2xl w-full text-center transition-all duration-300">
+            <div class="text-5xl text-amber-500 mb-3">
+                <i class="fa-solid fa-landmark-flag"></i>
+            </div>
+            <h2 class="text-2xl font-black text-gray-800 mb-2">日本史一問一答クイズ</h2>
+            <p class="text-gray-600 text-xs md:text-sm mb-5 leading-relaxed">
+                全16問の4択形式問題です。<br>
+                戦後政党の復活（自由・進歩・社会・共産・協同）・戦後初の総選挙と女性参政権・吉田内閣と中道連立内閣（片山・芦田）・金融緊急措置令と傾斜生産方式・復金インフレ・二・一ゼネスト中止と政令201号まで完全網羅！
+            </p>
+
+            <div class="bg-indigo-50/80 rounded-2xl p-4 mb-6 text-left border border-indigo-100">
+                <h3 class="font-bold text-indigo-900 text-xs md:text-sm mb-2 flex items-center gap-1.5">
+                    <i class="fa-solid fa-star text-amber-500"></i> このクイズの特徴
+                </h3>
+                <ul class="text-xs text-indigo-800 space-y-1.5">
+                    <li><i class="fa-solid fa-check text-green-500 mr-1"></i> 正解・不正解の効果音（BGM/SE）付き</li>
+                    <li><i class="fa-solid fa-check text-green-500 mr-1"></i> <b>選択肢の正解位置は毎回完全ランダムシャッフル！</b></li>
+                    <li><i class="fa-solid fa-check text-green-500 mr-1"></i> 戦後政治・経済再建（No.67）の要点整理カード搭載</li>
+                </ul>
+            </div>
+
+            <button onclick="startQuiz()" class="pulse-animation w-full bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white font-black text-lg py-3.5 px-8 rounded-2xl shadow-lg hover:shadow-indigo-500/50 transition-all flex items-center justify-center gap-2">
+                <i class="fa-solid fa-play"></i> テストを開始する！
+            </button>
+        </div>
+
+        <!-- QUIZ SCREEN -->
+        <div id="quiz-screen" class="glass-card rounded-3xl p-5 md:p-7 shadow-2xl w-full hidden transition-all duration-300">
+            <!-- Progress & Stats -->
+            <div class="flex justify-between items-center mb-3 pb-3 border-b border-gray-200">
+                <div class="flex items-center gap-2">
+                    <span id="question-number" class="bg-indigo-600 text-white text-xs font-bold px-3 py-1 rounded-full">Q.1 / 16</span>
+                    <span id="combo-badge" class="hidden bg-amber-500 text-white text-xs font-bold px-2 py-0.5 rounded-full animate-bounce">
+                        <i class="fa-solid fa-fire"></i> <span id="combo-count">0</span> コンボ!
+                    </span>
+                </div>
+                <div class="text-sm font-bold text-gray-600">
+                    スコア: <span id="current-score" class="text-indigo-600 font-black text-lg">0</span>
+                </div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="w-full bg-gray-200 rounded-full h-2 mb-5 overflow-hidden">
+                <div id="progress-bar" class="bg-indigo-600 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+            </div>
+
+            <!-- Question Text -->
+            <div class="mb-5">
+                <span id="question-category" class="text-xs font-bold text-indigo-600 tracking-wider uppercase">政党政治の復活・経済の再建 (No.67)</span>
+                <h3 id="question-text" class="text-base md:text-lg font-bold text-gray-800 mt-1 leading-snug">
+                    問題文がここに入ります。
+                </h3>
+            </div>
+
+            <!-- Options -->
+            <div id="options-container" class="space-y-2.5 mb-5">
+                <!-- Option buttons generated by JS -->
+            </div>
+
+            <!-- Feedback Area (Explanation) -->
+            <div id="explanation-card" class="hidden bg-slate-800 text-white rounded-2xl p-4 mb-4 border border-slate-700 animate-fade-in">
+                <div class="flex items-center gap-2 mb-1">
+                    <span id="result-icon" class="text-xl"></span>
+                    <h4 id="result-text" class="font-extrabold text-sm md:text-base">正解！</h4>
+                </div>
+                <p id="explanation-text" class="text-xs md:text-sm text-slate-300 leading-relaxed">
+                    解説文がここに入ります。
+                </p>
+            </div>
+
+            <!-- Next Button -->
+            <button id="next-btn" onclick="nextQuestion()" class="hidden w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 px-6 rounded-xl shadow transition-all flex items-center justify-center gap-2">
+                次へ進む <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </div>
+
+        <!-- RESULT SCREEN -->
+        <div id="result-screen" class="glass-card rounded-3xl p-6 md:p-8 shadow-2xl w-full text-center hidden transition-all duration-300">
+            <div id="result-badge" class="inline-block p-4 rounded-full bg-amber-100 text-amber-500 text-4xl mb-3 shadow-inner">
+                <i class="fa-solid fa-trophy"></i>
+            </div>
+            <h2 class="text-2xl font-black text-gray-800 mb-1">テスト結果</h2>
+            <p id="result-rank" class="text-xs md:text-sm font-bold text-indigo-600 mb-4">ランク判定中...</p>
+
+            <div class="bg-indigo-50/80 rounded-2xl p-5 mb-5">
+                <div class="text-xs text-indigo-600 font-bold uppercase tracking-wider mb-1">最終スコア</div>
+                <div class="text-4xl md:text-5xl font-black text-indigo-900 mb-1">
+                    <span id="final-score">0</span> <span class="text-base font-normal text-indigo-700">/ 100 点</span>
+                </div>
+                <p id="correct-count-text" class="text-xs text-indigo-800">16問中 0問 正解</p>
+            </div>
+
+            <div id="result-comment" class="bg-white p-4 rounded-xl border border-gray-200 text-xs md:text-sm text-gray-700 mb-5 text-left leading-relaxed">
+                コメント
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-2.5">
+                <button onclick="startQuiz()" class="flex-1 bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 px-4 rounded-xl shadow transition-all flex items-center justify-center gap-2 text-sm">
+                    <i class="fa-solid fa-rotate-right"></i> もう一度挑戦
+                </button>
+                <button onclick="toggleMnemonicsModal()" class="flex-1 bg-amber-500 hover:bg-amber-400 text-white font-bold py-3 px-4 rounded-xl shadow transition-all flex items-center justify-center gap-2 text-sm">
+                    <i class="fa-solid fa-lightbulb"></i> 戦後政治・経済要点整理
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Mnemonics Modal (暗記ポイント) -->
+    <div id="mnemonics-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl relative max-h-[85vh] overflow-y-auto">
+            <button onclick="toggleMnemonicsModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h3 class="text-lg font-black text-gray-800 mb-1 flex items-center gap-2">
+                <i class="fa-solid fa-key text-amber-500"></i> 政党政治の復活・経済の再建 要点まとめ
+            </h3>
+            <p class="text-xs text-gray-500 mb-4">プリントNo.67の最重要ポイントカード！</p>
+
+            <div class="space-y-2.5 text-xs text-gray-700">
+                <div class="p-3 bg-amber-50 rounded-xl border border-amber-200">
+                    <span class="font-bold text-amber-900 block mb-1">🏛️ 戦後政党の結成と首班の変遷：</span>
+                    <ul class="list-disc list-inside space-y-1 text-amber-950">
+                        <li><b>日本自由党</b>（鳩山一郎：旧政友会系）／ <b>日本進歩党</b>（町田忠治：旧民政党系）</li>
+                        <li><b>日本社会党</b>（片山哲：旧無産政党系）／ <b>日本共産党</b>（徳田球一：初の合法化）</li>
+                        <li><b>内閣順</b>：東久邇宮 → 幣原 → <b>第1次吉田</b> → <b>片山哲</b>（3党連立・社会党首班） → <b>芦田均</b>（3党連立・昭電事件） → <b>第2・3次吉田</b></li>
+                    </ul>
+                </div>
+                <div class="p-2.5 bg-indigo-50 rounded-xl border border-indigo-200">
+                    <span class="font-bold text-indigo-900 block mb-1">💴 戦後インフレと経済再建政策：</span>
+                    <ul class="list-disc list-inside space-y-1 text-indigo-950">
+                        <li><b>金融緊急措置令（1946.2・幣原内閣）</b>：預金封鎖・新円切替（効果は一時的）。</li>
+                        <li><b>傾斜生産方式（1946末〜・第1次吉田内閣）</b>：経済安定本部を設置し、<b>石炭・鉄鋼</b>に資金・資材を集中投下。</li>
+                        <li><b>復金インフレ</b>：復興金融金庫の巨額融資・補給金支給が新たなインフレを招いた。</li>
+                    </ul>
+                </div>
+                <div class="p-2.5 bg-rose-50 rounded-xl border border-rose-200">
+                    <span class="font-bold text-rose-900 block mb-1">✊ 労働運動の高揚と占領政策の転換：</span>
+                    <ul class="list-disc list-inside space-y-1 text-rose-950">
+                        <li><b>労働組織</b>：<b>総同盟</b>（右派・社会党系）と <b>産別会議</b>（左派・共産党系）。</li>
+                        <li><b>二・一ゼネスト（1947.2.1予定）</b>：GHQ（マッカーサー）の中止指令（1.31）で挫折。</li>
+                        <li><b>政令201号（1948.7）＆国家公務員法改正（11月）</b>：公務員の争議権・団体交渉権を剥奪し、<b>人事院</b>を設置。</li>
+                    </ul>
+                </div>
+            </div>
+
+            <button onclick="toggleMnemonicsModal()" class="w-full mt-5 bg-slate-800 text-white font-bold py-2.5 rounded-xl text-sm">
+                閉じる
+            </button>
+        </div>
+    </div>
+
+    <!-- JavaScript Sound & Quiz Logic -->
+    <script>
+        // ==========================================
+        // Web Audio API Sound System
+        // ==========================================
+        class SoundSystem {
+            constructor() {
+                this.ctx = null;
+            }
+
+            init() {
+                if (!this.ctx) {
+                    this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+                }
+            }
+
+            playCorrect() {
+                this.init();
+                const now = this.ctx.currentTime;
+                
+                // Japanese Traditional Chime sound (D-F#-A-D)
+                const freqs = [587.33, 739.99, 880.00, 1174.66];
+                freqs.forEach((f, i) => {
+                    const osc = this.ctx.createOscillator();
+                    const gain = this.ctx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(f, now + i * 0.08);
+                    
+                    gain.gain.setValueAtTime(0, now + i * 0.08);
+                    gain.gain.linearRampToValueAtTime(0.2, now + i * 0.08 + 0.02);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.08 + 0.35);
+
+                    osc.connect(gain);
+                    gain.connect(this.ctx.destination);
+
+                    osc.start(now + i * 0.08);
+                    osc.stop(now + i * 0.08 + 0.35);
+                });
+            }
+
+            playWrong() {
+                this.init();
+                const now = this.ctx.currentTime;
+
+                // Low Buzz Sound
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(140, now);
+                osc.frequency.setValueAtTime(110, now + 0.15);
+
+                gain.gain.setValueAtTime(0.25, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
+
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+
+                osc.start(now);
+                osc.stop(now + 0.4);
+            }
+
+            playFinish() {
+                this.init();
+                const now = this.ctx.currentTime;
+                const notes = [523.25, 659.25, 783.99, 1046.50];
+                notes.forEach((f, i) => {
+                    const osc = this.ctx.createOscillator();
+                    const gain = this.ctx.createGain();
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(f, now + i * 0.12);
+
+                    gain.gain.setValueAtTime(0.2, now + i * 0.12);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.12 + 0.5);
+
+                    osc.connect(gain);
+                    gain.connect(this.ctx.destination);
+
+                    osc.start(now + i * 0.12);
+                    osc.stop(now + i * 0.12 + 0.5);
+                });
+            }
+        }
+
+        const sound = new SoundSystem();
+
+        // ==========================================
+        // Master Quiz Data (16 Questions - Sheet No.67)
+        // ==========================================
+        const rawQuizData = [
+            {
+                category: "1. 戦後政党の再建 (No.67)",
+                question: "1945年秋以降に結成された戦後の主要政党と指導者の組み合わせとして、誤っているものはどれか？",
+                correctAnswer: "日本自由党 ―― 町田忠治",
+                dummyAnswers: ["日本自由党 ―― 鳩山一郎", "日本社会党 ―― 片山哲（書記長）", "日本共産党 ―― 徳田球一（書記長）"],
+                explanation: "日本自由党（旧立憲政友会系・非推薦組中心）の総裁は鳩山一郎です。町田忠治は旧立憲民政党系（翼賛選挙推薦組中心）の日本進歩党総裁です。"
+            },
+            {
+                category: "2. 戦後初の合法化政党と協同組合主義 (No.67)",
+                question: "戦後初めて合法政党として再建された日本共産党の書記長と、協同組合主義・労資協調を掲げた日本協同党の委員長の組み合わせはどれか？",
+                correctAnswer: "徳田球一 ／ 山本実彦",
+                dummyAnswers: ["野坂参三 ／ 片山哲", "山川均 ／ 芦田均", "堺利彦 ／ 鳩山一郎"],
+                explanation: "獄中から釈放された徳田球一らが日本共産党を再建し、初めて合法政党となりました。また、山本実彦を委員長として日本協同党が結成されました。"
+            },
+            {
+                category: "3. 東久邇宮内閣と幣原内閣の選挙法改正 (No.67)",
+                question: "東久邇宮稔彦内閣の総辞職後、1945年12月に幣原喜重郎内閣のもとで行われた衆議院議員選挙法改正の内容として正しいものはどれか？",
+                correctAnswer: "満20歳以上の男女に選挙権を与える（女性参政権の実現）・大選挙区制の採用",
+                dummyAnswers: ["満25歳以上の男子のみに選挙権を与える・小選挙区制の採用", "直接国税3円以上の納税要件を維持・中選挙区制の採用", "満18歳以上の男女に選挙権を与える・比例代表制の採用"],
+                explanation: "GHQの五大改革指令（婦人の解放）を受け、1945年12月に衆議院議員選挙法が改正され、20歳以上の男女に選挙権が付与されました（大選挙区制限連記制）。"
+            },
+            {
+                category: "4. 戦後初の総選挙と政治的空白 (No.67)",
+                question: "1946年4月に実施された戦後初の第22回衆議院議員総選挙の結果とその後の政局について、正しいものはどれか？",
+                correctAnswer: "女性議員39人が当選し、第一党となった日本自由党の総裁・鳩山一郎が組閣直前に公職追放された",
+                dummyAnswers: ["日本共産党が単独過半数を獲得し、徳田球一が首相に就任した", "女性議員は1人も当選せず、幣原喜重郎が引き続き長期政権を担った", "日本社会党が単独過半数を獲得し、直ちに片山哲内閣が成立した"],
+                explanation: "1946年4月の総選挙では39名の女性代議士が誕生し、日本自由党が第一党となりましたが、鳩山一郎総裁がGHQにより公職追放され、約1か月の政治的空白が生じました。"
+            },
+            {
+                category: "5. 第1次吉田茂内閣の成立 (No.67)",
+                question: "公職追放された鳩山一郎の後継として日本自由党総裁となり、1946年5月（6月）に第1次内閣を組織して政党内閣を復活させた人物は誰か？",
+                correctAnswer: "吉田茂",
+                dummyAnswers: ["芦田均", "石橋湛山", "岸信介"],
+                explanation: "元外相の吉田茂が日本自由党総裁を引き継ぎ、第1次吉田茂内閣を組閣しました。同内閣のもとで第2次農地改革・財閥解体・日本国憲法公布・施行が行われました。"
+            },
+            {
+                category: "6. 片山哲内閣と中道連立政権 (No.67)",
+                question: "日本国憲法施行直前の1947年4月の総選挙で日本社会党が第一党となったことを受け、同年5月に成立した片山哲内閣の特徴はどれか？",
+                correctAnswer: "日本社会党・民主党・国民協同党の3党連立内閣で、日本史上初の社会党首班内閣となった",
+                dummyAnswers: ["日本自由党単独の長期安定政権として、サンフランシスコ平和条約に調印した", "日本社会党と日本共産党の2党連立内閣で、すべての企業を国営化した", "貴族院議員のみで構成される超然内閣として発足した"],
+                explanation: "片山哲内閣は、社会党・民主党・国民協同党による中道3党連立内閣でした。しかし、炭鉱の国家管理問題などをめぐり社会党左派が反発し、約8か月で総辞職しました。"
+            },
+            {
+                category: "7. 芦田均内閣と昭和電工事件 (No.67)",
+                question: "片山哲内閣の総辞職後、1948年3月に同じく3党連立で成立した民主党の芦田均内閣が、わずか約7か月で総辞職に追い込まれた汚職事件は何か？",
+                correctAnswer: "昭和電工事件",
+                dummyAnswers: ["シーメンス事件", "帝人事件", "ロッキード事件"],
+                explanation: "復興金融金庫の融資をめぐる贈収賄事件である「昭和電工事件」により、1948年10月に芦田均内閣は総辞職し、芦田自身も逮捕されました。"
+            },
+            {
+                category: "8. 第2次・第3次吉田茂内閣と単独過半数 (No.67)",
+                question: "芦田内閣総辞職後に第2次吉田茂内閣が成立し、1949年1月の総選挙で吉田率いる与党が戦後初めて衆議院の単独過半数を獲得した。当時の与党名は何か？",
+                correctAnswer: "民主自由党",
+                dummyAnswers: ["立憲政友会", "自由民主党", "日本進歩党"],
+                explanation: "日本自由党に民主党の一部が合流して結成された「民主自由党」が1949年1月総選挙で単独過半数（264議席）を獲得し、第3次吉田茂内閣以降の長期安定政権の基盤となりました。"
+            },
+            {
+                category: "9. 戦後経済危機と復員・引揚げ (No.67)",
+                question: "敗戦直後の日本経済が深刻な食糧難と破局的インフレーションに陥った背景として、誤っているものはどれか？",
+                correctAnswer: "海外からの復員・引揚げ者が全く帰国せず、国内人口が急減して消費が消滅したため",
+                dummyAnswers: ["戦時中の国債大量発行や日銀券の増発により通貨量が膨張していたため", "農業資材・畜力・肥料の不足と戦災による国土荒廃で農業生産が低下したため", "海外からの復員・引揚げ者（約630万人）の帰国により人口が急増し食糧需要が高まったため"],
+                explanation: "旧満州・朝鮮・中国・東南アジアなどから合計約630万人もの復員・引揚げ者が帰国した一方、農業生産の低下や通貨膨張が重なり、深刻な食糧難とハイパーインフレが発生しました。"
+            },
+            {
+                category: "10. 金融緊急措置令 (No.67)",
+                question: "破局的なインフレーションを抑えるため、1946年2月に幣原喜重郎内閣が公布し、預金封鎖と新円切替・払戻し制限を行った法令は何か？",
+                correctAnswer: "金融緊急措置令",
+                dummyAnswers: ["国家総動員法", "食糧管理法", "重要産業統制法"],
+                explanation: "幣原内閣は1946年2月に金融緊急措置令を公布して旧円を預金封鎖し新円へ切り替えましたが、生産力が回復していなかったためインフレ抑制効果は一時的でした。"
+            },
+            {
+                category: "11. 傾斜生産方式と経済安定本部 (No.67)",
+                question: "第1次吉田茂内閣が「経済安定本部」を設置して採用し、限られた資金・資材を重点産業に集中投下して経済全体の復興を図った政策を何というか？",
+                correctAnswer: "傾斜生産方式",
+                dummyAnswers: ["所得倍増計画", "産業合理化政策", "金本位制復帰政策"],
+                explanation: "有沢広巳らが提唱した「傾斜生産方式」は、まず石炭と鉄鋼の2大基幹産業に資金と資材を集中させて増産し、その成果を電力・化学肥料などの他産業へ波及させる経済復興策です。"
+            },
+            {
+                category: "12. 傾斜生産方式の集中対象産業 (No.67)",
+                question: "傾斜生産方式において、資金・資材が最優先で集中投下された2つの基幹産業の組み合わせはどれか？",
+                correctAnswer: "石炭業と鉄鋼業",
+                dummyAnswers: ["紡績業と製糸業", "自動車産業と半導体産業", "造船業と海運業"],
+                explanation: "輸入重油を鉄鋼業に投入して鋼材を増産し、その鋼材を炭鉱に投入して石炭を増産し、さらにその石炭を鉄鋼業へ回すという循環によって基礎生産力の回復を図りました。"
+            },
+            {
+                category: "13. 復金インフレ (No.67)",
+                question: "傾斜生産方式を推進するために1947年1月に設立され、政府保証の債券（復金債）の日銀引受けによって巨額の融資を行った結果、新たなインフレ（復金インフレ）を招いた機関は何か？",
+                correctAnswer: "復興金融金庫",
+                dummyAnswers: ["日本勧業銀行", "横浜正金銀行", "持株会社整理委員会"],
+                explanation: "復興金融金庫からの巨額の融資や価格差補給金の支給は産業復興を促した反面、日銀による復金債引受けが通貨増発につながり「復金インフレ」を引き起こしました。"
+            },
+            {
+                category: "14. 労働組合の全国組織 (No.67)",
+                question: "1946年8月に結成された2大労働組合全国組織について、社会党系の右派組織と共産党系の左派組織の組み合わせとして正しいものはどれか？",
+                correctAnswer: "右派：日本労働組合総同盟（総同盟） ／ 左派：全日本産業別労働組合会議（産別会議）",
+                dummyAnswers: ["右派：全日本産業別労働組合会議（産別会議） ／ 左派：日本労働組合総同盟（総同盟）", "右派：大日本産業報国会 ／ 左派：友愛会", "右派：日本農民組合 ／ 左派：全国水平社"],
+                explanation: "1946年に戦前の総同盟の流れをくむ右派の「日本労働組合総同盟（総同盟）」と、共産党の影響が強い左派の「全日本産業別労働組合会議（産別会議）」が結成されました。"
+            },
+            {
+                category: "15. 二・一ゼネストと米国の対日政策転換 (No.67)",
+                question: "食糧メーデー（1946.5）などを経て高まった労働運動は、1947年2月1日に官公庁労組を中心とする大規模ゼネストを計画したが、前日の1月31日にどのような結末を迎えたか？",
+                correctAnswer: "GHQ最高司令官マッカーサーの中止指令により直前で中止された",
+                dummyAnswers: ["ゼネストが完全決行され、第1次吉田内閣が即座に倒壊した", "日本共産党が自らゼネストを無期限延期し、吉田内閣と連立を組んだ", "天皇の勅語によってゼネスト参加者がすべて公職追放された"],
+                explanation: "冷戦の激化を背景にGHQは労働運動への警戒を強め、1947年1月31日にマッカーサーが二・一ゼネストの中止を命令しました。翌1948年1月にはロイヤル米陸軍長官が日本を「共産主義に対する防壁」とする演説を行いました。"
+            },
+            {
+                category: "16. 政令201号と国家公務員法改正 (No.67)",
+                question: "1948年7月のマッカーサー書簡を受けて芦田均内閣が公布した「政令201号」および同年11月の国家公務員法改正の内容として正しいものはどれか？",
+                correctAnswer: "公務員の争議行為（ストライキ）と団体交渉権を禁止・制限し、人事院を設置した",
+                dummyAnswers: ["すべての公務員に無制限のストライキ権と政治活動の自由を保障した", "労働基準法を廃止し、戦前の工場法を再び復活させた", "民間企業の労働組合をすべて解散させ、大日本産業報国会を再建した"],
+                explanation: "1948年7月の政令201号と11月の国家公務員法改正により、国家公務員・地方公務員の争議権（ストライキ）や団体交渉権が剥奪・制限され、その代償機関として人事院が設置されました。"
+            }
+        ];
+
+        // State variables
+        let quizData = [];
+        let currentQuestionIdx = 0;
+        let score = 0;
+        let correctNum = 0;
+        let combo = 0;
+        let isAnswered = false;
+
+        const startScreen = document.getElementById('start-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultScreen = document.getElementById('result-screen');
+        const mnemonicsModal = document.getElementById('mnemonics-modal');
+
+        // Fisher-Yates Shuffle Utility
+        function shuffleArray(array) {
+            const arr = [...array];
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        // Initialize and randomize quiz questions & options
+        function prepareQuizData() {
+            // Shuffle question order
+            const shuffledQuestions = shuffleArray(rawQuizData);
+            
+            quizData = shuffledQuestions.map(q => {
+                // Combine correct answer and dummy answers into one pool
+                const allOptions = [q.correctAnswer, ...q.dummyAnswers];
+                // Randomly shuffle options
+                const shuffledOptions = shuffleArray(allOptions);
+                // Find new index of the correct answer
+                const correctIndex = shuffledOptions.indexOf(q.correctAnswer);
+
+                return {
+                    category: q.category,
+                    question: q.question,
+                    options: shuffledOptions,
+                    answer: correctIndex,
+                    explanation: q.explanation
+                };
+            });
+        }
+
+        function startQuiz() {
+            sound.init();
+            prepareQuizData();
+
+            currentQuestionIdx = 0;
+            score = 0;
+            correctNum = 0;
+            combo = 0;
+            isAnswered = false;
+
+            startScreen.classList.add('hidden');
+            resultScreen.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+
+            updateScoreDisplay();
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            isAnswered = false;
+            const q = quizData[currentQuestionIdx];
+
+            // Progress bar
+            const progressPct = ((currentQuestionIdx + 1) / quizData.length) * 100;
+            document.getElementById('progress-bar').style.width = `${progressPct}%`;
+            document.getElementById('question-number').textContent = `Q.${currentQuestionIdx + 1} / ${quizData.length}`;
+            document.getElementById('question-category').textContent = q.category;
+            document.getElementById('question-text').textContent = q.question;
+
+            // Reset explanation card & next button
+            document.getElementById('explanation-card').classList.add('hidden');
+            document.getElementById('next-btn').classList.add('hidden');
+
+            // Render option buttons
+            const container = document.getElementById('options-container');
+            container.innerHTML = '';
+
+            q.options.forEach((optText, idx) => {
+                const btn = document.createElement('button');
+                btn.className = 'w-full text-left p-3.5 md:p-4 rounded-xl border border-gray-200 bg-white hover:bg-indigo-50 hover:border-indigo-300 font-bold text-xs md:text-sm text-gray-700 transition-all flex items-center justify-between shadow-sm group';
+                btn.onclick = () => checkAnswer(idx);
+
+                btn.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <span class="w-7 h-7 rounded-full bg-slate-100 group-hover:bg-indigo-600 group-hover:text-white text-gray-500 font-bold text-xs flex items-center justify-center transition-colors">
+                            ${idx + 1}
+                        </span>
+                        <span>${optText}</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-gray-300 group-hover:text-indigo-500 transition-colors"></i>
+                `;
+                container.appendChild(btn);
+            });
+        }
+
+        function checkAnswer(selectedIndex) {
+            if (isAnswered) return;
+            isAnswered = true;
+
+            const q = quizData[currentQuestionIdx];
+            const isCorrect = (selectedIndex === q.answer);
+            const buttons = document.getElementById('options-container').querySelectorAll('button');
+
+            buttons.forEach((btn, idx) => {
+                btn.disabled = true;
+                btn.classList.remove('hover:bg-indigo-50', 'hover:border-indigo-300');
+
+                if (idx === q.answer) {
+                    btn.classList.add('bg-green-100', 'border-green-500', 'text-green-900');
+                    const badge = btn.querySelector('span');
+                    badge.className = 'w-7 h-7 rounded-full bg-green-500 text-white font-bold text-xs flex items-center justify-center';
+                    badge.innerHTML = '<i class="fa-solid fa-check"></i>';
+                } else if (idx === selectedIndex && !isCorrect) {
+                    btn.classList.add('bg-rose-100', 'border-rose-400', 'text-rose-900');
+                    const badge = btn.querySelector('span');
+                    badge.className = 'w-7 h-7 rounded-full bg-rose-500 text-white font-bold text-xs flex items-center justify-center';
+                    badge.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+                }
+            });
+
+            const explanationCard = document.getElementById('explanation-card');
+            const resultIcon = document.getElementById('result-icon');
+            const resultText = document.getElementById('result-text');
+            const explanationText = document.getElementById('explanation-text');
+
+            if (isCorrect) {
+                sound.playCorrect();
+                score += 6.25; // 100 / 16 = 6.25 points per question
+                correctNum++;
+                combo++;
+
+                resultIcon.className = 'fa-solid fa-circle-check text-green-400 text-xl';
+                resultText.textContent = '正解！素晴らしい！';
+                resultText.className = 'font-extrabold text-sm md:text-base text-green-300';
+            } else {
+                sound.playWrong();
+                combo = 0;
+
+                resultIcon.className = 'fa-solid fa-circle-xmark text-rose-400 text-xl';
+                resultText.textContent = `不正解... 正解は「${q.options[q.answer]}」`;
+                resultText.className = 'font-extrabold text-sm md:text-base text-rose-300';
+            }
+
+            explanationText.textContent = q.explanation;
+            explanationCard.classList.remove('hidden');
+
+            updateScoreDisplay();
+            document.getElementById('next-btn').classList.remove('hidden');
+        }
+
+        function updateScoreDisplay() {
+            document.getElementById('current-score').textContent = Math.round(score);
+            const comboBadge = document.getElementById('combo-badge');
+            if (combo > 1) {
+                document.getElementById('combo-count').textContent = combo;
+                comboBadge.classList.remove('hidden');
+            } else {
+                comboBadge.classList.add('hidden');
+            }
+        }
+
+        function nextQuestion() {
+            currentQuestionIdx++;
+            if (currentQuestionIdx < quizData.length) {
+                loadQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        function showResult() {
+            sound.playFinish();
+            quizScreen.classList.add('hidden');
+            resultScreen.classList.remove('hidden');
+
+            const finalScoreVal = Math.round(score);
+            document.getElementById('final-score').textContent = finalScoreVal;
+            document.getElementById('correct-count-text').textContent = `16問中 ${correctNum}問 正解`;
+
+            const rankEl = document.getElementById('result-rank');
+            const commentEl = document.getElementById('result-comment');
+            const badgeEl = document.getElementById('result-badge');
+
+            if (finalScoreVal === 100) {
+                rankEl.textContent = '🏆 SSSランク：戦後政治・経済再建マスター！';
+                badgeEl.className = 'inline-block p-4 rounded-full bg-amber-100 text-amber-500 text-4xl mb-3 shadow-inner';
+                badgeEl.innerHTML = '<i class="fa-solid fa-crown"></i>';
+                commentEl.innerHTML = 'パーフェクト！戦後政党の復活から吉田・片山・芦田内閣の変遷、金融緊急措置令、傾斜生産方式、復金インフレ、二・一ゼネスト中止と政令201号まで完全網羅できています！';
+            } else if (finalScoreVal >= 80) {
+                rankEl.textContent = '🥇 Sランク：合格点達成！';
+                badgeEl.className = 'inline-block p-4 rounded-full bg-indigo-100 text-indigo-500 text-4xl mb-3 shadow-inner';
+                badgeEl.innerHTML = '<i class="fa-solid fa-award"></i>';
+                commentEl.innerHTML = '素晴らしい成績です！戦後の政局の流れと経済復興政策の重要語句をしっかりマスターできています！';
+            } else if (finalScoreVal >= 60) {
+                rankEl.textContent = '🥈 Aランク：あと一歩！';
+                badgeEl.className = 'inline-block p-4 rounded-full bg-blue-100 text-blue-500 text-4xl mb-3 shadow-inner';
+                badgeEl.innerHTML = '<i class="fa-solid fa-medal"></i>';
+                commentEl.innerHTML = '基本知識は定着しています。要点整理モーダルで「戦後内閣の順番」や「傾斜生産方式・政令201号」をおさらいしてみましょう！';
+            } else {
+                rankEl.textContent = '🥉 Bランク：復習しよう！';
+                badgeEl.className = 'inline-block p-4 rounded-full bg-slate-100 text-slate-500 text-4xl mb-3 shadow-inner';
+                badgeEl.innerHTML = '<i class="fa-solid fa-book-open"></i>';
+                commentEl.innerHTML = 'プリントNo.67の復習が必要です！「自由・進歩・社会・共産」の政党と首班の順番、金融緊急措置令・傾斜生産方式・二・一ゼネストの流れを復習して再挑戦しましょう！';
+            }
+        }
+
+        function toggleMnemonicsModal() {
+            mnemonicsModal.classList.toggle('hidden');
+        }
+    </script>
+</body>
+</html>
